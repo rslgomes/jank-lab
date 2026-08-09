@@ -1,0 +1,26 @@
+:root {
+  --font-display: "Archivo Black", sans-serif;
+  --font-mono: "Space Mono", monospace;
+
+  --color-ink: #1b1b1b;
+  --color-canvas: #ebebeb;
+
+  --accent-chroma: 0.15;
+
+  --color-accent-1: oklch(78% var(--accent-chroma) 25); /* red */
+  --color-accent-2: oklch(83% var(--accent-chroma) 62); /* orange */
+  --color-accent-3: oklch(90% var(--accent-chroma) 100); /* yellow */
+  --color-accent-4: oklch(85% var(--accent-chroma) 145); /* green */
+  --color-accent-5: oklch(84% calc(var(--accent-chroma) - 0.04) 195); /* teal */
+  --color-accent-6: oklch(76% calc(var(--accent-chroma) - 0.02) 250); /* blue */
+  --color-accent-7: oklch(72% var(--accent-chroma) 295); /* violet */
+  --color-accent-8: oklch(79% var(--accent-chroma) 335); /* magenta */
+
+  --spacing: 0.25rem;
+
+  --border-thick: var(--spacing);
+  --shadow-hard: var(--spacing) var(--spacing) 0px var(--color-ink);
+
+  --translate-active: var(--spacing), var(--spacing);
+  --shadow-active: 0px 0px 0px var(--color-ink);
+}

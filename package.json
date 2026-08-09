@@ -1,0 +1,13 @@
+{
+  "name": "jank-lab",
+  "version": "1.0.0",
+  "description": "row renderer with performance toggles and measuring tools to learn and discuss solutions",
+  "license": "ISC",
+  "author": "Rodrigo Pochete",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}

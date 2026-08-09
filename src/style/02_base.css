@@ -1,0 +1,5 @@
+body {
+  background-color: var(--color-canvas);
+  font-family: var(--font-mono);
+  color: var(--color-ink);
+}
