@@ -11,15 +11,101 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/style/index.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@faker-js/faker": "/node_modules/@faker-js/faker/dist/index.js"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="app" id="root">
-      <header class="masthead">
+      <header class="masthead cluster">
         <h1>Jank Lab</h1>
+        <button
+          class="burguer"
+          id="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="settings"
+        >
+          <span class="burguer__bar" aria-hidden="true"></span>
+          <span class="visually-hidden">Settings</span>
+        </button>
       </header>
       <main class="content">
-        <div class="rows" id="rows"></div>
+        <section class="settings" id="settings">
+          <div class="settings__scroller">
+            <section class="settings__section" id="set-data">
+              <h2>Data</h2>
+
+              <div class="field">
+                <label class="field__label" for="row-count">
+                  Rows
+                  <output class="field__value" id="row-count-output"
+                    >100</output
+                  >
+                </label>
+                <input
+                  class="field__range"
+                  type="range"
+                  id="row-count"
+                  min="1"
+                  max="5"
+                  step="1"
+                  value="1"
+                />
+              </div>
+
+              <fieldset class="field">
+                <legend class="field__label">Source</legend>
+                <label class="choice">
+                  <input
+                    type="radio"
+                    name="data-source"
+                    value="faker"
+                    checked
+                  />
+                  faker &mdash; realistic, expensive
+                </label>
+                <label class="choice">
+                  <input type="radio" name="data-source" value="cheap" />
+                  cheap &mdash; synthetic, near-zero
+                </label>
+              </fieldset>
+            </section>
+            <section class="settings__section" id="set-build">
+              <h2>Build</h2>
+
+              <fieldset class="field" id="build-strategy">
+                <legend class="field__label">Insertion</legend>
+              </fieldset>
+
+              <div class="field">
+                <button class="button" id="verify-strategies" type="button">
+                  Verify identical DOM
+                </button>
+                <p class="note" id="verify-result" aria-live="polite">
+                  Comparing strategies is only fair if every one of them emits
+                  the same markup.
+                </p>
+              </div>
+            </section>
+          </div>
+          <footer class="settings__footer">
+            <button class="cta" id="new-render" type="button">
+              New render
+            </button>
+          </footer>
+        </section>
+        <div class="rows" id="rows">
+          <div class="rows__list" id="rows-list">
+            <div class="rows__surface" id="rows-surface"></div>
+          </div>
+        </div>
       </main>
     </div>
+    <script type="module" src="/src/app.js"></script>
   </body>
 </html>

@@ -1,0 +1,18 @@
+.app:has(.burguer[aria-expanded="true"]) .settings {
+  display: grid;
+  z-index: 1;
+}
+
+[aria-expanded="true"] .burguer__bar {
+  background-color: transparent;
+
+  &::before {
+    translate: 0;
+    rotate: 45deg;
+  }
+
+  &::after {
+    translate: 0;
+    rotate: -45deg;
+  }
+}

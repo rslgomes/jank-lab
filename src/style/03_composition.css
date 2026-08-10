@@ -1,0 +1,55 @@
+.cluster {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app {
+  height: 100dvh;
+  overflow: clip;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(0, 1fr);
+  height: var(--content-height);
+}
+
+.settings,
+.rows {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.settings {
+  display: none;
+  grid-template-rows: minmax(0, 1fr) auto;
+  position: relative;
+}
+
+.rows {
+  position: relative;
+}
+
+@media (min-width: 52rem) {
+  .burguer {
+    display: none;
+  }
+
+  .content {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .settings {
+    display: grid;
+    grid-column: 1;
+    align-self: center;
+  }
+
+  .rows {
+    grid-column: 2;
+    margin: var(--rows-vertical-margin) calc(10 * var(--spacing));
+  }
+}
