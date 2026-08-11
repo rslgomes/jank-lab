@@ -1,7 +1,7 @@
-import { buildStrategies } from "../render/index.js";
+import { buildStrategies } from "../config/render/index.js";
 import { renderChoices } from "./controls.js";
 import { state } from "../state.js";
-import { verifyStrategies } from "../render/verify.js";
+import { verifyStrategies } from "../config/render/verify.js";
 
 export function initBuildSettings(onChange) {
   const strategyField = document.getElementById("build-strategy");

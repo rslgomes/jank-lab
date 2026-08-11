@@ -23,6 +23,24 @@
     <div class="app" id="root">
       <header class="masthead cluster">
         <h1>Jank Lab</h1>
+        <dl class="metrics">
+          <div class="metric">
+            <dt>rows</dt>
+            <dd data-metric="row-count">&mdash;</dd>
+          </div>
+          <div class="metric">
+            <dt>in dom</dt>
+            <dd data-metric="dom-rows">&mdash;</dd>
+          </div>
+          <div class="metric">
+            <dt>generate</dt>
+            <dd data-metric="generate">&mdash;</dd>
+          </div>
+          <div class="metric">
+            <dt>render</dt>
+            <dd data-metric="render">&mdash;</dd>
+          </div>
+        </dl>
         <button
           class="burguer"
           id="menu-toggle"
@@ -36,7 +54,21 @@
       </header>
       <main class="content">
         <section class="settings" id="settings">
+          <nav
+            class="settings__rail"
+            aria-label="Settings sections, first half"
+          >
+            <ol role="list" class="cluster turned-up">
+              <li><a href="#set-presets">Presets</a></li>
+              <li><a href="#set-data">Data</a></li>
+              <li><a href="#set-build">Build</a></li>
+              <li><a href="#set-layout">Layout</a></li>
+            </ol>
+          </nav>
           <div class="settings__scroller">
+            <section class="settings__section" id="set-presets">
+              <h2>Presets</h2>
+            </section>
             <section class="settings__section" id="set-data">
               <h2>Data</h2>
 
@@ -92,7 +124,33 @@
                 </p>
               </div>
             </section>
+            <section class="settings__section" id="set-layout">
+              <h2>Layout</h2>
+            </section>
+            <section class="settings__section" id="set-paint">
+              <h2>Paint</h2>
+            </section>
+            <section class="settings__section" id="set-time">
+              <h2>Time</h2>
+            </section>
+            <section class="settings__section" id="set-memory">
+              <h2>Memory</h2>
+            </section>
+            <section class="settings__section" id="set-runs">
+              <h2>Runs</h2>
+            </section>
           </div>
+          <nav
+            class="settings__rail"
+            aria-label="Settings sections, second half"
+          >
+            <ol role="list" class="cluster turned-down">
+              <li><a href="#set-paint">Paint</a></li>
+              <li><a href="#set-time">Time</a></li>
+              <li><a href="#set-memory">Memory</a></li>
+              <li><a href="#set-runs">Runs</a></li>
+            </ol>
+          </nav>
           <footer class="settings__footer">
             <button class="cta" id="new-render" type="button">
               New render

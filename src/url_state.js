@@ -1,4 +1,4 @@
-import { buildStrategies } from "./render/index.js";
+import { buildStrategies } from "./config/render/index.js";
 import { dataSources, rowCountSteps, state } from "./state.js";
 
 export function loadStateFromUrl() {

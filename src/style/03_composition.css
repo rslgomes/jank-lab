@@ -3,6 +3,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  &.turned-up {
+    flex-direction: row-reverse;
+  }
 }
 
 .app {
@@ -12,7 +16,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
   height: var(--content-height);
 }
@@ -25,8 +29,13 @@
 
 .settings {
   display: none;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   grid-template-rows: minmax(0, 1fr) auto;
   position: relative;
+}
+
+.settings__footer {
+  grid-column: 1 / -1;
 }
 
 .rows {
@@ -39,7 +48,7 @@
   }
 
   .content {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   }
 
   .settings {
@@ -50,6 +59,7 @@
 
   .rows {
     grid-column: 2;
-    margin: var(--rows-vertical-margin) calc(10 * var(--spacing));
+    margin: var(--rows-vertical-margin) var(--settings-rail-width);
+    margin-left: calc(2 * var(--settings-rail-width));
   }
 }

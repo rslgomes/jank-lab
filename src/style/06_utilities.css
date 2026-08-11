@@ -1,3 +1,11 @@
+.turned-up {
+  writing-mode: sideways-lr;
+}
+
+.turned-down {
+  writing-mode: vertical-rl;
+}
+
 [hidden] {
   display: none;
 }
