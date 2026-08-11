@@ -106,6 +106,17 @@
                   cheap &mdash; synthetic, near-zero
                 </label>
               </fieldset>
+
+              <div class="field">
+                <label class="choice">
+                  <input type="checkbox" id="cache-toggle" checked />
+                  Cache generated rows
+                </label>
+                <button class="button" id="clear-cache" type="button">
+                  Clear cache
+                </button>
+                <p class="note" id="cache-readout" aria-live="polite"></p>
+              </div>
             </section>
             <section class="settings__section" id="set-build">
               <h2>Build</h2>
@@ -113,6 +124,26 @@
               <fieldset class="field" id="build-strategy">
                 <legend class="field__label">Insertion</legend>
               </fieldset>
+
+              <fieldset class="field" id="virtualization-mode">
+                <legend class="field__label">Virtualization</legend>
+              </fieldset>
+
+              <div class="field" id="buffer-field" hidden>
+                <label class="field__label" for="buffer-rows">
+                  Buffer rows
+                  <output class="field__value" id="buffer-output">8</output>
+                </label>
+                <input
+                  class="field__range"
+                  type="range"
+                  id="buffer-rows"
+                  min="0"
+                  max="40"
+                  step="2"
+                  value="8"
+                />
+              </div>
 
               <div class="field">
                 <button class="button" id="verify-strategies" type="button">

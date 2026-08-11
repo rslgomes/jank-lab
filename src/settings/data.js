@@ -1,10 +1,23 @@
+import { cacheSummary, clearRowCache } from "../config/data/rows.js";
 import { formatCount } from "../format.js";
 import { rowCountSteps, state, stepForRowCount } from "../state.js";
 
 export function initDataSettings(onChange) {
   const rowCount = document.getElementById("row-count");
   const rowCountOutput = document.getElementById("row-count-output");
+  const cacheToggle = document.getElementById("cache-toggle");
+  const clearCache = document.getElementById("clear-cache");
+  const cacheReadout = document.getElementById("cache-readout");
   const sources = document.querySelectorAll('[name="data-source"]');
+
+  function showCacheSize() {
+    const { datasets, rows } = cacheSummary();
+
+    cacheReadout.textContent =
+      datasets === 0
+        ? "cache empty"
+        : `${datasets} dataset${datasets === 1 ? "" : "s"} held, ${formatCount(rows)} rows retained`;
+  }
 
   function syncRowCount() {
     state.rowCount = rowCountSteps[rowCount.value];
@@ -14,6 +27,7 @@ export function initDataSettings(onChange) {
 
   rowCount.value = stepForRowCount(state.rowCount);
   rowCountOutput.textContent = formatCount(state.rowCount);
+  cacheToggle.checked = state.cache;
 
   sources.forEach((input) => {
     input.checked = input.value === state.dataSource;
@@ -24,4 +38,18 @@ export function initDataSettings(onChange) {
   });
 
   rowCount.addEventListener("input", syncRowCount);
+
+  cacheToggle.addEventListener("change", () => {
+    state.cache = cacheToggle.checked;
+    onChange();
+  });
+
+  clearCache.addEventListener("click", () => {
+    clearRowCache();
+    showCacheSize();
+  });
+
+  showCacheSize();
+
+  return { showCacheSize };
 }

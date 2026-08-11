@@ -13,7 +13,7 @@ function renderDetached(id, rows) {
 }
 
 export function verifyStrategies() {
-  const rows = generateRows(SAMPLE_SIZE, { source: "faker" });
+  const rows = generateRows(SAMPLE_SIZE, { source: "faker", cache: false });
   const [reference, ...others] = Object.keys(buildStrategies);
   const expected = renderDetached(reference, rows);
 

@@ -25,6 +25,7 @@
   --settings-height: var(--content-height);
   --settings-footer-height: calc(11 * var(--spacing));
   --settings-rail-width: 2.5rem;
+  --slide-duration: 320ms;
   --row-height: calc(12 * var(--spacing));
   --rows-vertical-margin: clamp(60px, 100dvh, 10dvh);
 

@@ -12,7 +12,7 @@ export function initSettings(onRun) {
     saveStateToUrl();
   }
 
-  initDataSettings(onChange);
+  const data = initDataSettings(onChange);
   initBuildSettings(onChange);
 
   function confirmLargeRun() {
@@ -23,11 +23,16 @@ export function initSettings(onRun) {
     );
   }
 
+  function runAndSync() {
+    onRun();
+    data.showCacheSize();
+  }
+
   cta.addEventListener("click", () => {
-    if (confirmLargeRun()) onRun();
+    if (confirmLargeRun()) runAndSync();
   });
 
   onChange();
 
-  return onRun;
+  return runAndSync;
 }

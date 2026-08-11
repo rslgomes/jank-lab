@@ -28,7 +28,7 @@
 }
 
 .settings {
-  display: none;
+  display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   grid-template-rows: minmax(0, 1fr) auto;
   position: relative;
@@ -40,6 +40,14 @@
 
 .rows {
   position: relative;
+  container-type: inline-size;
+  container-name: rows;
+}
+
+@media (width < 52rem) {
+  .content {
+    overflow: clip;
+  }
 }
 
 @media (min-width: 52rem) {
@@ -52,7 +60,6 @@
   }
 
   .settings {
-    display: grid;
     grid-column: 1;
     align-self: center;
   }

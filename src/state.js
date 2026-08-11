@@ -11,7 +11,10 @@ export const dataSources = ["faker", "cheap"];
 export const state = {
   rowCount: rowCountSteps[1],
   dataSource: "faker",
+  cache: true,
   buildStrategy: "inner_html",
+  virtualization: "off",
+  bufferRows: 8,
 };
 
 export function stepForRowCount(count) {

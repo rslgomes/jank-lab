@@ -4,6 +4,8 @@ const SEED = 27;
 const STATUSES = ["active", "idle", "failed"];
 const COUNTRIES = ["BR", "US", "PT", "DE", "JP", "SE", "NG", "IN"];
 
+const rowCache = new Map();
+
 function pad(value, length) {
   return String(value).padStart(length, "0");
 }
@@ -59,7 +61,11 @@ const builders = {
   cheap: createCheapRow,
 };
 
-export function generateRows(count, { source = "faker" } = {}) {
+export function generateRows(count, { source = "faker", cache = true } = {}) {
+  const key = `${source}:${count}`;
+
+  if (cache && rowCache.has(key)) return rowCache.get(key);
+
   if (source === "faker") faker.seed(SEED);
 
   const build = builders[source];
@@ -69,5 +75,23 @@ export function generateRows(count, { source = "faker" } = {}) {
     rows.push(build(i));
   }
 
+  if (cache) rowCache.set(key, rows);
+
   return rows;
+}
+
+export function cacheSummary() {
+  let datasets = 0;
+  let rows = 0;
+
+  for (const cached of rowCache.values()) {
+    datasets += 1;
+    rows += cached.length;
+  }
+
+  return { datasets, rows };
+}
+
+export function clearRowCache() {
+  rowCache.clear();
 }

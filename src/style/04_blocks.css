@@ -17,6 +17,12 @@
   position: relative;
 }
 
+.rows__viewport {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+}
+
 .row {
   --row-font-primary: 0.8125rem;
   --row-font-secondary: 0.6875rem;
@@ -143,6 +149,73 @@
 .row__id {
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+@media (width < 52rem) {
+  .rows {
+    border: none;
+  }
+}
+
+@container rows (width < 58rem) {
+  .row {
+    --row-font-primary: 0.875rem;
+    --row-font-secondary: 0.75rem;
+    --row-height: calc(38 * var(--spacing));
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas:
+      "status  status"
+      "name    amount"
+      "email   email"
+      "company role"
+      "country dob"
+      "index   id";
+    row-gap: calc(0.5 * var(--spacing));
+    padding-block: calc(2 * var(--spacing));
+    border-bottom: 2px solid var(--color-ink);
+  }
+
+  .row__status {
+    grid-area: status;
+  }
+
+  .row__name {
+    grid-area: name;
+  }
+
+  .row__amount {
+    grid-area: amount;
+  }
+
+  .row__email {
+    grid-area: email;
+  }
+
+  .row__company {
+    grid-area: company;
+  }
+
+  .row__role {
+    grid-area: role;
+  }
+
+  .row__country {
+    grid-area: country;
+  }
+
+  .row__dob {
+    grid-area: dob;
+  }
+
+  .row__index {
+    grid-area: index;
+  }
+
+  .row__id {
+    grid-area: id;
+  }
 }
 
 .settings__rail {
@@ -390,6 +463,7 @@
   height: var(--bar-height);
   width: var(--bar-width);
   background-color: var(--color-ink);
+  transition: background-color calc(var(--slide-duration) / 2) ease;
 
   &::before,
   &::after {
@@ -398,6 +472,9 @@
     inset-inline: 0;
     height: var(--bar-height);
     background-color: var(--color-ink);
+    transition:
+      translate var(--slide-duration) ease,
+      rotate var(--slide-duration) ease;
   }
 
   &::before {
