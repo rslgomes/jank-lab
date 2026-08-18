@@ -1,3 +1,5 @@
+import { containmentToggles } from "./config/containment/index.js";
+
 export const rowCountSteps = {
   1: 100,
   2: 1000,
@@ -15,6 +17,10 @@ export const state = {
   buildStrategy: "inner_html",
   virtualization: "off",
   bufferRows: 8,
+  layoutStrategy: "interleaved",
+  containment: Object.fromEntries(
+    Object.keys(containmentToggles).map((key) => [key, false]),
+  ),
 };
 
 export function stepForRowCount(count) {

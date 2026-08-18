@@ -1,5 +1,7 @@
 import { initBuildSettings } from "./build.js";
 import { initDataSettings } from "./data.js";
+import { initLayoutSettings } from "./layout.js";
+import { initPaintSettings } from "./paint.js";
 import { rowCountSteps, state } from "../state.js";
 import { saveStateToUrl } from "../url_state.js";
 
@@ -14,6 +16,8 @@ export function initSettings(onRun) {
 
   const data = initDataSettings(onChange);
   initBuildSettings(onChange);
+  initLayoutSettings(onChange);
+  initPaintSettings(onChange);
 
   function confirmLargeRun() {
     if (state.rowCount < CONFIRM_ROW_THRESHOLD) return true;

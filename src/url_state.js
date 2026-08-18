@@ -1,5 +1,6 @@
 import { buildStrategies } from "./config/render/index.js";
 import { dataSources, rowCountSteps, state } from "./state.js";
+import { layoutStrategies } from "./config/layout/index.js";
 import {
   MAX_BUFFER_ROWS,
   virtualizationModes,
@@ -32,9 +33,28 @@ export function loadStateFromUrl() {
   if (params.has("buf") && Number.isInteger(bufferRows) && bufferRows >= 0) {
     state.bufferRows = Math.min(bufferRows, MAX_BUFFER_ROWS);
   }
+
+  const layoutStrategy = params.get("layout");
+  if (Object.hasOwn(layoutStrategies, layoutStrategy ?? "")) {
+    state.layoutStrategy = layoutStrategy;
+  }
+
+  const paint = params.get("paint");
+  if (paint !== null) {
+    const flags = new Set(paint.split(",").filter(Boolean));
+
+    for (const key of Object.keys(state.containment)) {
+      state.containment[key] = flags.has(key);
+    }
+  }
 }
 
 export function saveStateToUrl() {
+  const paint = Object.entries(state.containment)
+    .filter(([, on]) => on)
+    .map(([key]) => key)
+    .join(",");
+
   const params = new URLSearchParams({
     rows: String(state.rowCount),
     src: state.dataSource,
@@ -42,6 +62,8 @@ export function saveStateToUrl() {
     build: state.buildStrategy,
     virt: state.virtualization,
     buf: String(state.bufferRows),
+    layout: state.layoutStrategy,
+    paint,
   });
 
   history.replaceState(null, "", `?${params}`);

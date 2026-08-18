@@ -29,3 +29,36 @@ export function renderChoices(fieldset, name, entries, selected, onPick) {
     if (event.target.name === name) onPick(event.target.value);
   });
 }
+
+export function renderToggles(fieldset, entries, isChecked, onToggle) {
+  const fragment = document.createDocumentFragment();
+
+  for (const [key, { label, hint }] of entries) {
+    const choice = document.createElement("label");
+    choice.className = "choice";
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.dataset.key = key;
+    input.checked = isChecked(key);
+
+    const text = document.createElement("span");
+    text.textContent = label;
+
+    const note = document.createElement("span");
+    note.className = "choice__hint";
+    note.textContent = hint;
+
+    text.append(" ", note);
+    choice.append(input, text);
+    fragment.append(choice);
+  }
+
+  fieldset.append(fragment);
+
+  fieldset.addEventListener("change", (event) => {
+    if (event.target.dataset.key) {
+      onToggle(event.target.dataset.key, event.target.checked);
+    }
+  });
+}
