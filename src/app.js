@@ -1,10 +1,10 @@
 import { beforeReplace } from "./config/memory/index.js";
 import { buildStrategies } from "./config/render/index.js";
 import { generateRowsChunked } from "./config/data/rows.js";
+import { initMarquee } from "./super_header/marquee.js";
 import { initMenu } from "./menu.js";
 import { initSettings } from "./settings/index.js";
 import { loadStateFromUrl } from "./url_state.js";
-import { measureAsync, showMetrics } from "./metrics/index.js";
 import { state } from "./state.js";
 import { virtualizationModes } from "./config/virtualization/index.js";
 import {
@@ -12,6 +12,14 @@ import {
   attachPerRow,
   toggleRowSelection,
 } from "./config/events/methods.js";
+import {
+  beginFrameCapture,
+  endFrameCapture,
+  measureAsync,
+  observeFrames,
+  showMetrics,
+  timeToPaint,
+} from "./metrics/index.js";
 
 function App() {
   const scroller = document.getElementById("rows-list");
@@ -37,6 +45,9 @@ function App() {
   }
 
   async function run() {
+    const startedAt = performance.now();
+    beginFrameCapture();
+
     const generated = await measureAsync("generate", () =>
       generateRowsChunked(state.rowCount, {
         source: state.dataSource,
@@ -74,10 +85,17 @@ function App() {
       generate: generated.duration,
       render: rendered.duration,
     });
+
+    const painted = await timeToPaint(startedAt);
+    const styleLayout = await endFrameCapture();
+
+    showMetrics({ painted, "style-layout": styleLayout });
   }
 
   loadStateFromUrl();
+  observeFrames();
   initMenu();
+  initMarquee(document.querySelector(".super-header__track"));
   attachDelegated(
     surface,
     toggleRowSelection,

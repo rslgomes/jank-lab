@@ -21,7 +21,10 @@
   --spacing: 0.25rem;
 
   --header-height: calc(12 * var(--spacing));
-  --content-height: calc(100dvh - var(--header-height));
+  --super-header-height: var(--header-height);
+  --content-height: calc(
+    100dvh - var(--header-height) - var(--super-header-height)
+  );
   --settings-height: var(--content-height);
   --settings-footer-height: calc(11 * var(--spacing));
   --settings-rail-width: 2.5rem;
@@ -40,6 +43,7 @@
 
 @media (min-width: 52rem) {
   :root {
+    --super-header-height: 0px;
     --settings-height: clamp(20rem, 45dvh, 120rem);
   }
 }

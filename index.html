@@ -21,6 +21,36 @@
   </head>
   <body>
     <div class="app" id="root">
+      <div class="super-header" id="super-header">
+        <div class="super-header__track">
+          <dl class="metrics--marquee">
+            <div class="metric">
+              <dt>rows</dt>
+              <dd data-metric="row-count">&mdash;</dd>
+            </div>
+            <div class="metric">
+              <dt>in dom</dt>
+              <dd data-metric="dom-rows">&mdash;</dd>
+            </div>
+            <div class="metric">
+              <dt>generate</dt>
+              <dd data-metric="generate">&mdash;</dd>
+            </div>
+            <div class="metric">
+              <dt>render</dt>
+              <dd data-metric="render">&mdash;</dd>
+            </div>
+            <div class="metric">
+              <dt>style+layout</dt>
+              <dd data-metric="style-layout">&mdash;</dd>
+            </div>
+            <div class="metric">
+              <dt>to paint</dt>
+              <dd data-metric="painted">&mdash;</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
       <header class="masthead cluster">
         <h1>Jank Lab</h1>
         <dl class="metrics">
@@ -39,6 +69,14 @@
           <div class="metric">
             <dt>render</dt>
             <dd data-metric="render">&mdash;</dd>
+          </div>
+          <div class="metric">
+            <dt>style+layout</dt>
+            <dd data-metric="style-layout">&mdash;</dd>
+          </div>
+          <div class="metric">
+            <dt>to paint</dt>
+            <dd data-metric="painted">&mdash;</dd>
           </div>
         </dl>
         <button

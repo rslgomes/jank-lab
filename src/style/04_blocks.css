@@ -3,6 +3,46 @@
   padding-inline: clamp(8px, calc(20dvw - 9.9rem), 17dvw);
 }
 
+.super-header {
+  height: var(--super-header-height);
+  overflow: clip;
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+}
+
+.super-header__track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
+.metrics--marquee {
+  display: flex;
+  gap: calc(4 * var(--spacing));
+  padding-inline: calc(2 * var(--spacing));
+  font-variant-numeric: tabular-nums;
+}
+
+.super-header__divider {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: calc(3 * var(--spacing));
+  font-family: var(--font-display);
+  color: color-mix(in srgb, var(--color-canvas), transparent 45%);
+}
+
+.super-header .metric dt {
+  color: color-mix(in srgb, var(--color-canvas), transparent 45%);
+}
+
+@media (min-width: 52rem) {
+  .super-header {
+    display: none;
+  }
+}
+
 .rows {
   border: var(--border-thick) solid var(--color-ink);
   overflow: clip;

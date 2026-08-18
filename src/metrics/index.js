@@ -34,11 +34,69 @@ export async function measureAsync(name, work) {
   return { result, duration };
 }
 
+let framesObserved = false;
+let capturingFrames = false;
+let worstStyleAndLayout = 0;
+
+const FRAME_ENTRY_TYPE = "long-animation-frame";
+
+export function observeFrames() {
+  if (!PerformanceObserver.supportedEntryTypes?.includes(FRAME_ENTRY_TYPE)) {
+    framesObserved = false;
+    return;
+  }
+
+  try {
+    const observer = new PerformanceObserver((list) => {
+      if (!capturingFrames) return;
+
+      for (const entry of list.getEntries()) {
+        if (!entry.styleAndLayoutStart) continue;
+
+        const frameEnd = entry.startTime + entry.duration;
+        worstStyleAndLayout = Math.max(
+          worstStyleAndLayout,
+          frameEnd - entry.styleAndLayoutStart,
+        );
+      }
+    });
+
+    observer.observe({ type: FRAME_ENTRY_TYPE });
+    framesObserved = true;
+  } catch {
+    framesObserved = false;
+  }
+}
+
+export function beginFrameCapture() {
+  capturingFrames = true;
+  worstStyleAndLayout = 0;
+}
+
+export function endFrameCapture() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      capturingFrames = false;
+      resolve(framesObserved ? worstStyleAndLayout : Number.NaN);
+    });
+  });
+}
+
+export function timeToPaint(startedAt) {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => resolve(performance.now() - startedAt));
+    });
+  });
+}
+
 const formatters = {
   "row-count": formatCount,
   "dom-rows": formatCount,
   generate: formatMs,
   render: formatMs,
+  painted: formatMs,
+  "style-layout": (value) => (Number.isNaN(value) ? "n/a" : formatMs(value)),
 };
 
 export function showMetrics(readings) {
