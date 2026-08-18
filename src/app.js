@@ -6,6 +6,7 @@ import { initMenu } from "./menu.js";
 import { initSettings } from "./settings/index.js";
 import { loadStateFromUrl } from "./url_state.js";
 import { state } from "./state.js";
+import { beginRun, endRun, startStep, yieldedSoFar } from "./loading.js";
 import { virtualizationModes } from "./config/virtualization/index.js";
 import {
   attachDelegated,
@@ -45,7 +46,11 @@ function App() {
   }
 
   async function run() {
+    beginRun();
+    await startStep("Generating data");
+
     const startedAt = performance.now();
+    const yieldedBefore = yieldedSoFar();
     beginFrameCapture();
 
     const generated = await measureAsync("generate", () =>
@@ -56,6 +61,8 @@ function App() {
         chunkRows: state.chunkRows,
       }),
     );
+
+    await startStep("Building DOM");
 
     const strategy = buildStrategies[state.buildStrategy].render;
     const target = currentList();
@@ -86,10 +93,17 @@ function App() {
       render: rendered.duration,
     });
 
-    const painted = await timeToPaint(startedAt);
+    await startStep("Painting");
+
+    const reachedPaint = await timeToPaint(startedAt);
     const styleLayout = await endFrameCapture();
 
-    showMetrics({ painted, "style-layout": styleLayout });
+    endRun();
+
+    showMetrics({
+      painted: reachedPaint - (yieldedSoFar() - yieldedBefore),
+      "style-layout": styleLayout,
+    });
   }
 
   loadStateFromUrl();

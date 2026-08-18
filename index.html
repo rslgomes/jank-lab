@@ -285,6 +285,21 @@
           <div class="rows__list" id="rows-list">
             <div class="rows__surface" id="rows-surface"></div>
           </div>
+          <div class="loading" id="loading" hidden>
+            <div class="loader">
+              <span class="loader__track">
+                <span class="loader__fill loader__fill--composited"></span>
+              </span>
+              <span class="loader__name">compositor thread</span>
+            </div>
+            <div class="loader">
+              <span class="loader__track">
+                <span class="loader__fill loader__fill--blocked"></span>
+              </span>
+              <span class="loader__name">main thread</span>
+            </div>
+            <ol class="loading__log" id="loading-log" aria-live="polite"></ol>
+          </div>
         </div>
       </main>
     </div>

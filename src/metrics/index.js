@@ -82,12 +82,23 @@ export function endFrameCapture() {
   });
 }
 
+const PAINT_TIMEOUT = 1000;
+
 export function timeToPaint(startedAt) {
   return new Promise((resolve) => {
+    const giveUp = setTimeout(() => resolve(Number.NaN), PAINT_TIMEOUT);
+
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => resolve(performance.now() - startedAt));
+      requestAnimationFrame(() => {
+        clearTimeout(giveUp);
+        resolve(performance.now() - startedAt);
+      });
     });
   });
+}
+
+function formatMsOrUnavailable(value) {
+  return Number.isNaN(value) ? "n/a" : formatMs(value);
 }
 
 const formatters = {
@@ -95,8 +106,8 @@ const formatters = {
   "dom-rows": formatCount,
   generate: formatMs,
   render: formatMs,
-  painted: formatMs,
-  "style-layout": (value) => (Number.isNaN(value) ? "n/a" : formatMs(value)),
+  painted: formatMsOrUnavailable,
+  "style-layout": formatMsOrUnavailable,
 };
 
 export function showMetrics(readings) {

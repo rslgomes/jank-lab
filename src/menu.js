@@ -9,6 +9,10 @@ function setOpen(open) {
   rows.toggleAttribute("inert", open);
 }
 
+export function closeMenu() {
+  if (isOpen()) setOpen(false);
+}
+
 export function initMenu() {
   toggle.addEventListener("click", () => setOpen(!isOpen()));
 

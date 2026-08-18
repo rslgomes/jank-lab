@@ -6,6 +6,7 @@ import { initPaintSettings } from "./paint.js";
 import { initPresetSettings } from "./presets.js";
 import { initTimeSettings } from "./time.js";
 import { initWindowSettings } from "./window.js";
+import { closeMenu } from "../menu.js";
 import { saveStateToUrl } from "../url_state.js";
 import { state } from "../state.js";
 import { warningsFor } from "../risk.js";
@@ -44,6 +45,7 @@ export function initSettings(onRun) {
   }
 
   async function runAndSync() {
+    closeMenu();
     cta.disabled = true;
     await onRun();
     cta.disabled = false;

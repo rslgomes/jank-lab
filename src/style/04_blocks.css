@@ -57,6 +57,124 @@
   position: relative;
 }
 
+.loading {
+  --loader-duration: 1.2s;
+  --fade-duration: 2s;
+  --track-width: min(18rem, 100%);
+
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: calc(3 * var(--spacing));
+  padding: calc(4 * var(--spacing));
+  background-color: color-mix(in srgb, var(--color-canvas), transparent 25%);
+  backdrop-filter: blur(2px);
+
+  &[data-state="fading"] {
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--fade-duration) ease;
+  }
+}
+
+.loader {
+  display: grid;
+  gap: var(--spacing);
+  width: var(--track-width);
+}
+
+.loader__name {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.loader__track {
+  display: block;
+  overflow: clip;
+  width: 100%;
+  height: calc(3 * var(--spacing));
+  border: var(--border-thick) solid var(--color-ink);
+  background-color: var(--color-canvas);
+}
+
+.loader__fill {
+  display: block;
+  height: 100%;
+  background-color: var(--color-ink);
+
+  .loading[data-state="fading"] & {
+    animation-play-state: paused;
+  }
+}
+
+.loader__fill--composited {
+  width: 100%;
+  transform-origin: left;
+  animation: loader-scale var(--loader-duration) linear infinite;
+}
+
+.loader__fill--blocked {
+  animation: loader-width var(--loader-duration) linear infinite;
+}
+
+@keyframes loader-scale {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes loader-width {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.loading__log {
+  display: grid;
+  gap: var(--spacing);
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.loading__step {
+  display: flex;
+  align-items: baseline;
+  gap: calc(2 * var(--spacing));
+  justify-content: space-between;
+  min-width: 14rem;
+  padding: var(--spacing) calc(2 * var(--spacing));
+  border: 2px solid var(--color-ink);
+  background-color: var(--color-canvas);
+
+  &[data-state="running"] {
+    background-color: var(--color-accent-3);
+  }
+}
+
+.loading__time {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading[data-state="fading"] {
+    transition: none;
+  }
+}
+
 .rows__viewport {
   position: absolute;
   inset-inline: 0;
