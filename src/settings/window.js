@@ -1,4 +1,4 @@
-import { renderChoices } from "./controls.js";
+import { renderChoices, syncChoices } from "./controls.js";
 import { state } from "../state.js";
 import { virtualizationModes } from "../config/virtualization/index.js";
 
@@ -24,8 +24,14 @@ export function initWindowSettings(onChange) {
     },
   );
 
-  bufferInput.value = String(state.bufferRows);
-  bufferOutput.textContent = String(state.bufferRows);
+  function sync() {
+    syncChoices(virtualizationField, "virtualization-mode", state.virtualization);
+    bufferInput.value = String(state.bufferRows);
+    bufferOutput.textContent = String(state.bufferRows);
+    syncBufferVisibility();
+  }
+
+  sync();
 
   bufferInput.addEventListener("input", () => {
     state.bufferRows = Number(bufferInput.value);
@@ -33,5 +39,5 @@ export function initWindowSettings(onChange) {
     onChange();
   });
 
-  syncBufferVisibility();
+  return { sync };
 }

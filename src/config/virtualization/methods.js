@@ -1,10 +1,29 @@
+import { schedulingModes } from "../scheduling/index.js";
 import { windowedListCore } from "./core.js";
 
 export function fullList({ surface }) {
   return {
-    render(rows, strategy) {
+    async render(rows, strategy, options = {}) {
+      const { scheduling = "synchronous", chunkRows = rows.length } = options;
+      const mode = schedulingModes[scheduling];
+
       surface.replaceChildren();
-      strategy(surface, rows, 0);
+
+      if (!mode.chunked || chunkRows >= rows.length) {
+        strategy(surface, rows, 0);
+
+        return rows.length;
+      }
+
+      for (let start = 0; start < rows.length; start += chunkRows) {
+        const chunk = rows.slice(start, start + chunkRows);
+        const host = document.createElement("div");
+
+        strategy(host, chunk, start);
+        surface.append(...host.children);
+
+        if (start + chunkRows < rows.length) await mode.nextTick();
+      }
 
       return rows.length;
     },

@@ -30,6 +30,12 @@ export function renderChoices(fieldset, name, entries, selected, onPick) {
   });
 }
 
+export function syncChoices(fieldset, name, selected) {
+  for (const input of fieldset.querySelectorAll(`input[name="${name}"]`)) {
+    input.checked = input.value === selected;
+  }
+}
+
 export function renderToggles(fieldset, entries, isChecked, onToggle) {
   const fragment = document.createDocumentFragment();
 
@@ -61,4 +67,10 @@ export function renderToggles(fieldset, entries, isChecked, onToggle) {
       onToggle(event.target.dataset.key, event.target.checked);
     }
   });
+}
+
+export function syncToggles(fieldset, isChecked) {
+  for (const input of fieldset.querySelectorAll("input[data-key]")) {
+    input.checked = isChecked(input.dataset.key);
+  }
 }

@@ -1,7 +1,7 @@
 import { formatCount, formatMs } from "../format.js";
 import { layoutStrategies } from "../config/layout/index.js";
 import { measure } from "../metrics/index.js";
-import { renderChoices } from "./controls.js";
+import { renderChoices, syncChoices } from "./controls.js";
 import { state } from "../state.js";
 
 export function initLayoutSettings(onChange) {
@@ -20,6 +20,10 @@ export function initLayoutSettings(onChange) {
     },
   );
 
+  function sync() {
+    syncChoices(strategyField, "layout-strategy", state.layoutStrategy);
+  }
+
   runButton.addEventListener("click", () => {
     const rows = document.querySelectorAll("#rows-surface .row");
 
@@ -34,4 +38,6 @@ export function initLayoutSettings(onChange) {
 
     result.textContent = `${formatCount(rows.length)} rows scanned, ${pass.result} overflowing, ${formatMs(pass.duration)}`;
   });
+
+  return { sync };
 }

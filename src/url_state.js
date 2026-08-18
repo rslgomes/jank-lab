@@ -1,6 +1,13 @@
 import { buildStrategies } from "./config/render/index.js";
 import { dataSources, rowCountSteps, state } from "./state.js";
+import { eventStrategies } from "./config/events/index.js";
 import { layoutStrategies } from "./config/layout/index.js";
+import {
+  MAX_CHUNK_ROWS,
+  MIN_CHUNK_ROWS,
+  schedulingModes,
+} from "./config/scheduling/index.js";
+import { memoryStrategies } from "./config/memory/index.js";
 import {
   MAX_BUFFER_ROWS,
   virtualizationModes,
@@ -47,6 +54,29 @@ export function loadStateFromUrl() {
       state.containment[key] = flags.has(key);
     }
   }
+
+  const scheduling = params.get("sched");
+  if (Object.hasOwn(schedulingModes, scheduling ?? "")) {
+    state.scheduling = scheduling;
+  }
+
+  const chunkRows = Number(params.get("chunk"));
+  if (params.has("chunk") && Number.isInteger(chunkRows) && chunkRows > 0) {
+    state.chunkRows = Math.min(
+      Math.max(chunkRows, MIN_CHUNK_ROWS),
+      MAX_CHUNK_ROWS,
+    );
+  }
+
+  const eventStrategy = params.get("events");
+  if (Object.hasOwn(eventStrategies, eventStrategy ?? "")) {
+    state.eventStrategy = eventStrategy;
+  }
+
+  const memoryStrategy = params.get("mem");
+  if (Object.hasOwn(memoryStrategies, memoryStrategy ?? "")) {
+    state.memoryStrategy = memoryStrategy;
+  }
 }
 
 export function saveStateToUrl() {
@@ -64,6 +94,10 @@ export function saveStateToUrl() {
     buf: String(state.bufferRows),
     layout: state.layoutStrategy,
     paint,
+    sched: state.scheduling,
+    chunk: String(state.chunkRows),
+    events: state.eventStrategy,
+    mem: state.memoryStrategy,
   });
 
   history.replaceState(null, "", `?${params}`);

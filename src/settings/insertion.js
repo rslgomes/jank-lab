@@ -1,5 +1,5 @@
 import { buildStrategies } from "../config/render/index.js";
-import { renderChoices } from "./controls.js";
+import { renderChoices, syncChoices } from "./controls.js";
 import { state } from "../state.js";
 import { verifyStrategies } from "../config/render/verify.js";
 
@@ -19,6 +19,10 @@ export function initInsertionSettings(onChange) {
     },
   );
 
+  function sync() {
+    syncChoices(strategyField, "build-strategy", state.buildStrategy);
+  }
+
   verifyButton.addEventListener("click", () => {
     const { total, mismatched } = verifyStrategies();
 
@@ -27,4 +31,6 @@ export function initInsertionSettings(onChange) {
         ? `all ${total} strategies produce identical DOM`
         : `different DOM: ${mismatched.join(", ")}`;
   });
+
+  return { sync };
 }

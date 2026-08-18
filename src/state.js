@@ -21,6 +21,10 @@ export const state = {
   containment: Object.fromEntries(
     Object.keys(containmentToggles).map((key) => [key, false]),
   ),
+  scheduling: "synchronous",
+  chunkRows: 200,
+  eventStrategy: "delegated",
+  memoryStrategy: "cleanup",
 };
 
 export function stepForRowCount(count) {

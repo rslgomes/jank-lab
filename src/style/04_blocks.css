@@ -36,6 +36,11 @@
   will-change: transform;
 }
 
+.row[data-selected="1"] {
+  outline: var(--border-thick) solid var(--color-accent-6);
+  outline-offset: calc(-1 * var(--border-thick));
+}
+
 .row {
   --row-font-primary: 0.8125rem;
   --row-font-secondary: 0.6875rem;
@@ -404,6 +409,27 @@
   .cta {
     flex: 0 0 auto;
     padding-inline: 2rem;
+  }
+}
+
+.presets {
+  display: grid;
+  gap: calc(2 * var(--spacing));
+}
+
+.preset {
+  padding: calc(1.5 * var(--spacing)) calc(2 * var(--spacing));
+  border: var(--border-thick) solid var(--color-ink);
+  background-color: var(--color-canvas);
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+
+  &:active {
+    transform: translate(var(--translate-active));
   }
 }
 

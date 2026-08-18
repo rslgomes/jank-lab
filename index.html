@@ -67,7 +67,12 @@
           </nav>
           <div class="settings__scroller">
             <section class="settings__section" id="set-presets">
-              <h2>Presets</h2>
+              <div class="cluster">
+                <h2>Presets</h2>
+                <p class="note" id="preset-readout" aria-live="polite"></p>
+              </div>
+
+              <div class="presets" id="preset-list"></div>
             </section>
             <section class="settings__section" id="set-data">
               <h2>Data</h2>
@@ -181,9 +186,44 @@
             </section>
             <section class="settings__section" id="set-time">
               <h2>Time</h2>
+
+              <fieldset class="field" id="scheduling-mode">
+                <legend class="field__label">Scheduling</legend>
+              </fieldset>
+
+              <div class="field" id="chunk-field" hidden>
+                <label class="field__label" for="chunk-rows">
+                  Chunk size
+                  <output class="field__value" id="chunk-output">200</output>
+                </label>
+                <input
+                  class="field__range"
+                  type="range"
+                  id="chunk-rows"
+                  min="10"
+                  max="5000"
+                  step="10"
+                  value="200"
+                />
+              </div>
             </section>
             <section class="settings__section" id="set-memory">
               <h2>Memory</h2>
+
+              <fieldset class="field" id="event-strategy">
+                <legend class="field__label">Listeners</legend>
+              </fieldset>
+
+              <fieldset class="field" id="memory-strategy">
+                <legend class="field__label">Cleanup</legend>
+              </fieldset>
+
+              <div class="field">
+                <button class="button" id="clear-retained" type="button">
+                  Clear retained rows
+                </button>
+                <p class="note" id="memory-readout" aria-live="polite"></p>
+              </div>
             </section>
           </div>
           <nav

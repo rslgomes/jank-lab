@@ -1,5 +1,5 @@
 import { containmentToggles } from "../config/containment/index.js";
-import { renderToggles } from "./controls.js";
+import { renderToggles, syncToggles } from "./controls.js";
 import { state } from "../state.js";
 
 export function initPaintSettings(onChange) {
@@ -26,5 +26,12 @@ export function initPaintSettings(onChange) {
     },
   );
 
-  syncAttributes();
+  function sync() {
+    syncToggles(field, (key) => state.containment[key]);
+    syncAttributes();
+  }
+
+  sync();
+
+  return { sync };
 }

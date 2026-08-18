@@ -25,12 +25,19 @@ export function initDataSettings(onChange) {
     onChange();
   }
 
-  rowCount.value = stepForRowCount(state.rowCount);
-  rowCountOutput.textContent = formatCount(state.rowCount);
-  cacheToggle.checked = state.cache;
+  function sync() {
+    rowCount.value = stepForRowCount(state.rowCount);
+    rowCountOutput.textContent = formatCount(state.rowCount);
+    cacheToggle.checked = state.cache;
+
+    for (const input of sources) {
+      input.checked = input.value === state.dataSource;
+    }
+  }
+
+  sync();
 
   sources.forEach((input) => {
-    input.checked = input.value === state.dataSource;
     input.addEventListener("change", () => {
       if (input.checked) state.dataSource = input.value;
       onChange();
@@ -51,5 +58,5 @@ export function initDataSettings(onChange) {
 
   showCacheSize();
 
-  return { showCacheSize };
+  return { sync, showCacheSize };
 }

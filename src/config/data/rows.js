@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { schedulingModes } from "../scheduling/index.js";
 
 const SEED = 27;
 const STATUSES = ["active", "idle", "failed"];
@@ -73,6 +74,42 @@ export function generateRows(count, { source = "faker", cache = true } = {}) {
 
   for (let i = 0; i < count; i++) {
     rows.push(build(i));
+  }
+
+  if (cache) rowCache.set(key, rows);
+
+  return rows;
+}
+
+export async function generateRowsChunked(count, options = {}) {
+  const {
+    source = "faker",
+    cache = true,
+    scheduling = "synchronous",
+    chunkRows = count,
+  } = options;
+
+  const mode = schedulingModes[scheduling];
+
+  if (!mode.chunked || chunkRows >= count) {
+    return generateRows(count, { source, cache });
+  }
+
+  const key = `${source}:${count}`;
+
+  if (cache && rowCache.has(key)) return rowCache.get(key);
+
+  if (source === "faker") faker.seed(SEED);
+
+  const build = builders[source];
+  const rows = new Array(count);
+
+  for (let start = 0; start < count; start += chunkRows) {
+    const end = Math.min(start + chunkRows, count);
+
+    for (let i = start; i < end; i++) rows[i] = build(i);
+
+    if (end < count) await mode.nextTick();
   }
 
   if (cache) rowCache.set(key, rows);

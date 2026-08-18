@@ -4,6 +4,13 @@ export function formatCount(value) {
   return String(value);
 }
 
+export function formatBytes(value) {
+  if (value === null || Number.isNaN(value)) return "n/a";
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}MB`;
+  if (value >= 1_000) return `${(value / 1_000).toFixed(1)}kB`;
+  return `${value}B`;
+}
+
 export function formatMs(value) {
   if (value >= 1000) return `${(value / 1000).toFixed(2)}s`;
   if (value >= 10) return `${Math.round(value)}ms`;

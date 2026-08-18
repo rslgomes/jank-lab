@@ -17,6 +17,23 @@ export function measure(name, work) {
   return { result, duration };
 }
 
+export async function measureAsync(name, work) {
+  const startMark = `${name}:start`;
+  const endMark = `${name}:end`;
+
+  performance.mark(startMark);
+  const result = await work();
+  performance.mark(endMark);
+
+  const { duration } = performance.measure(name, startMark, endMark);
+
+  performance.clearMarks(startMark);
+  performance.clearMarks(endMark);
+  performance.clearMeasures(name);
+
+  return { result, duration };
+}
+
 const formatters = {
   "row-count": formatCount,
   "dom-rows": formatCount,
