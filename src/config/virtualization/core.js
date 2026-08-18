@@ -1,3 +1,5 @@
+import { createRowElement } from "../render/row_shape.js";
+
 const FALLBACK_ROW_HEIGHT = 48;
 
 function measureRowHeight(surface) {

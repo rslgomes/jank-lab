@@ -61,8 +61,8 @@
             <ol role="list" class="cluster turned-up">
               <li><a href="#set-presets">Presets</a></li>
               <li><a href="#set-data">Data</a></li>
-              <li><a href="#set-build">Build</a></li>
-              <li><a href="#set-layout">Layout</a></li>
+              <li><a href="#set-insertion">Insertion</a></li>
+              <li><a href="#set-window">Window</a></li>
             </ol>
           </nav>
           <div class="settings__scroller">
@@ -118,12 +118,25 @@
                 <p class="note" id="cache-readout" aria-live="polite"></p>
               </div>
             </section>
-            <section class="settings__section" id="set-build">
-              <h2>Build</h2>
+            <section class="settings__section" id="set-insertion">
+              <h2>Insertion</h2>
 
               <fieldset class="field" id="build-strategy">
-                <legend class="field__label">Insertion</legend>
+                <legend class="field__label">Strategy</legend>
               </fieldset>
+
+              <div class="field">
+                <button class="button" id="verify-strategies" type="button">
+                  Verify identical DOM
+                </button>
+                <p class="note" id="verify-result" aria-live="polite">
+                  Comparing strategies is only fair if every one of them emits
+                  the same markup.
+                </p>
+              </div>
+            </section>
+            <section class="settings__section" id="set-window">
+              <h2>Window</h2>
 
               <fieldset class="field" id="virtualization-mode">
                 <legend class="field__label">Virtualization</legend>
@@ -143,16 +156,6 @@
                   step="2"
                   value="8"
                 />
-              </div>
-
-              <div class="field">
-                <button class="button" id="verify-strategies" type="button">
-                  Verify identical DOM
-                </button>
-                <p class="note" id="verify-result" aria-live="polite">
-                  Comparing strategies is only fair if every one of them emits
-                  the same markup.
-                </p>
               </div>
             </section>
             <section class="settings__section" id="set-layout">
@@ -182,19 +185,16 @@
             <section class="settings__section" id="set-memory">
               <h2>Memory</h2>
             </section>
-            <section class="settings__section" id="set-runs">
-              <h2>Runs</h2>
-            </section>
           </div>
           <nav
             class="settings__rail"
             aria-label="Settings sections, second half"
           >
             <ol role="list" class="cluster turned-down">
+              <li><a href="#set-layout">Layout</a></li>
               <li><a href="#set-paint">Paint</a></li>
               <li><a href="#set-time">Time</a></li>
               <li><a href="#set-memory">Memory</a></li>
-              <li><a href="#set-runs">Runs</a></li>
             </ol>
           </nav>
           <footer class="settings__footer">

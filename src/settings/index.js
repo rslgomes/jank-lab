@@ -1,7 +1,8 @@
-import { initBuildSettings } from "./build.js";
 import { initDataSettings } from "./data.js";
+import { initInsertionSettings } from "./insertion.js";
 import { initLayoutSettings } from "./layout.js";
 import { initPaintSettings } from "./paint.js";
+import { initWindowSettings } from "./window.js";
 import { rowCountSteps, state } from "../state.js";
 import { saveStateToUrl } from "../url_state.js";
 
@@ -15,7 +16,8 @@ export function initSettings(onRun) {
   }
 
   const data = initDataSettings(onChange);
-  initBuildSettings(onChange);
+  initInsertionSettings(onChange);
+  initWindowSettings(onChange);
   initLayoutSettings(onChange);
   initPaintSettings(onChange);
 
