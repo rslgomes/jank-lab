@@ -403,13 +403,34 @@
 
 .settings__rail {
   display: grid;
-  padding: 0 calc(2 * var(--spacing));
   width: var(--settings-rail-width);
   background-color: var(--color-canvas);
 }
 
 .settings__rail ol {
   column-gap: calc(4 * var(--spacing));
+  align-items: end;
+}
+
+.settings__rail .turned-up {
+  --highlight-direction: to right;
+}
+
+.settings__rail .turned-down {
+  --highlight-direction: to left;
+}
+
+.settings__rail a {
+  display: block;
+
+  &[aria-current="location"] {
+    background-image: linear-gradient(
+      var(--highlight-direction),
+      transparent 50%,
+      var(--accent) 50%
+    );
+    font-weight: 700;
+  }
 }
 
 @media (width < 52rem) {
@@ -437,44 +458,53 @@
   }
 }
 
+[id="set-presets"],
+[href="#set-presets"] {
+  --accent: var(--color-section-presets);
+}
+
+[id="set-data"],
+[href="#set-data"] {
+  --accent: var(--color-section-data);
+}
+
+[id="set-insertion"],
+[href="#set-insertion"] {
+  --accent: var(--color-section-insertion);
+}
+
+[id="set-window"],
+[href="#set-window"] {
+  --accent: var(--color-section-window);
+}
+
+[id="set-layout"],
+[href="#set-layout"] {
+  --accent: var(--color-section-layout);
+}
+
+[id="set-paint"],
+[href="#set-paint"] {
+  --accent: var(--color-section-paint);
+}
+
+[id="set-time"],
+[href="#set-time"] {
+  --accent: var(--color-section-time);
+}
+
+[id="set-memory"],
+[href="#set-memory"] {
+  --accent: var(--color-section-memory);
+}
+
 .settings__section {
   display: grid;
   gap: calc(4 * var(--spacing));
   align-content: start;
   min-height: 100%;
   padding: calc(6 * var(--spacing));
-
-  &:nth-child(1) {
-    background-color: var(--color-accent-1);
-  }
-
-  &:nth-child(2) {
-    background-color: var(--color-accent-2);
-  }
-
-  &:nth-child(3) {
-    background-color: var(--color-accent-3);
-  }
-
-  &:nth-child(4) {
-    background-color: var(--color-accent-4);
-  }
-
-  &:nth-child(5) {
-    background-color: var(--color-accent-5);
-  }
-
-  &:nth-child(6) {
-    background-color: var(--color-accent-6);
-  }
-
-  &:nth-child(7) {
-    background-color: var(--color-accent-7);
-  }
-
-  &:nth-child(8) {
-    background-color: var(--color-accent-8);
-  }
+  background-color: var(--accent);
 }
 
 .metrics {

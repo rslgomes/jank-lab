@@ -5,6 +5,7 @@ import { initMemorySettings } from "./memory.js";
 import { initPaintSettings } from "./paint.js";
 import { initPresetSettings } from "./presets.js";
 import { initTimeSettings } from "./time.js";
+import { initRail } from "./rail.js";
 import { initWindowSettings } from "./window.js";
 import { closeMenu } from "../menu.js";
 import { saveStateToUrl } from "../url_state.js";
@@ -27,6 +28,8 @@ export function initSettings(onRun) {
   const memory = initMemorySettings(onChange);
 
   const panels = [data, insertion, windowing, layout, paint, time, memory];
+
+  initRail();
 
   function syncControls() {
     for (const panel of panels) panel.sync();

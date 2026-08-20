@@ -18,6 +18,15 @@
 
   --color-accent-deep: oklch(50% 0.2 25);
 
+  --color-section-presets: var(--color-accent-1);
+  --color-section-data: var(--color-accent-2);
+  --color-section-insertion: var(--color-accent-3);
+  --color-section-window: var(--color-accent-4);
+  --color-section-layout: var(--color-accent-5);
+  --color-section-paint: var(--color-accent-6);
+  --color-section-time: var(--color-accent-7);
+  --color-section-memory: var(--color-accent-8);
+
   --spacing: 0.25rem;
 
   --header-height: calc(12 * var(--spacing));
