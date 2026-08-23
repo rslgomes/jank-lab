@@ -36,6 +36,9 @@
   );
   --settings-height: var(--content-height);
   --settings-footer-height: calc(11 * var(--spacing));
+  --settings-total-height: calc(
+    var(--settings-height) + var(--settings-footer-height)
+  );
   --settings-rail-width: 2.5rem;
   --slide-duration: 320ms;
   --row-height: calc(12 * var(--spacing));

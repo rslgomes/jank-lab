@@ -44,6 +44,14 @@
   container-name: rows;
 }
 
+.projection {
+  display: none;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  position: relative;
+  pointer-events: none;
+}
+
 @media (width < 52rem) {
   .content {
     overflow: clip;
@@ -68,5 +76,9 @@
     grid-column: 2;
     margin: var(--rows-vertical-margin) var(--settings-rail-width);
     margin-left: calc(2 * var(--settings-rail-width));
+  }
+
+  .projection {
+    display: block;
   }
 }

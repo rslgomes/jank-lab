@@ -6,6 +6,20 @@
   writing-mode: vertical-rl;
 }
 
+.diagonal-span {
+  --_line: var(--diagonal-span-color, var(--color-ink));
+  --_from: calc(50% - var(--diagonal-span-thickness, 2px) / 2);
+  --_to: calc(50% + var(--diagonal-span-thickness, 2px) / 2);
+
+  background-image: linear-gradient(
+    var(--diagonal-span-direction, to bottom right),
+    transparent var(--_from),
+    var(--_line) var(--_from),
+    var(--_line) var(--_to),
+    transparent var(--_to)
+  );
+}
+
 [hidden] {
   display: none;
 }
