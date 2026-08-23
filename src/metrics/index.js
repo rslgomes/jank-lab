@@ -1,4 +1,4 @@
-import { formatCount, formatMs } from "../format.js";
+import { formatCount, formatMs, formatMsOrUnavailable } from "../format.js";
 
 export function measure(name, work) {
   const startMark = `${name}:start`;
@@ -95,10 +95,6 @@ export function timeToPaint(startedAt) {
       });
     });
   });
-}
-
-function formatMsOrUnavailable(value) {
-  return Number.isNaN(value) ? "n/a" : formatMs(value);
 }
 
 const formatters = {

@@ -79,6 +79,7 @@
             <dd data-metric="painted">&mdash;</dd>
           </div>
         </dl>
+        <button class="button" id="runs-toggle" type="button">Runs</button>
         <button
           class="burguer"
           id="menu-toggle"
@@ -160,6 +161,13 @@
                 </button>
                 <p class="note" id="cache-readout" aria-live="polite"></p>
               </div>
+
+              <div class="field">
+                <label class="choice">
+                  <input type="checkbox" id="flags-toggle" />
+                  Show country as flag image
+                </label>
+              </div>
             </section>
             <section class="settings__section" id="set-insertion">
               <h2>Insertion</h2>
@@ -167,16 +175,6 @@
               <fieldset class="field" id="build-strategy">
                 <legend class="field__label">Strategy</legend>
               </fieldset>
-
-              <div class="field">
-                <button class="button" id="verify-strategies" type="button">
-                  Verify identical DOM
-                </button>
-                <p class="note" id="verify-result" aria-live="polite">
-                  Comparing strategies is only fair if every one of them emits
-                  the same markup.
-                </p>
-              </div>
             </section>
             <section class="settings__section" id="set-window">
               <h2>Window</h2>
@@ -309,6 +307,17 @@
         </div>
       </main>
     </div>
+    <dialog class="runs" id="runs-dialog">
+      <header class="runs__header cluster">
+        <h2>Runs</h2>
+        <div class="runs__actions cluster">
+          <button class="button" id="runs-clear" type="button">Clear</button>
+          <button class="button" id="runs-close" type="button">Close</button>
+        </div>
+      </header>
+      <div class="runs__scroll" id="runs-table"></div>
+      <p class="note" id="runs-readout" aria-live="polite"></p>
+    </dialog>
     <script type="module" src="/src/app.js"></script>
   </body>
 </html>

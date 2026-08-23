@@ -8,6 +8,7 @@ export function initDataSettings(onChange) {
   const cacheToggle = document.getElementById("cache-toggle");
   const clearCache = document.getElementById("clear-cache");
   const cacheReadout = document.getElementById("cache-readout");
+  const flagsToggle = document.getElementById("flags-toggle");
   const sources = document.querySelectorAll('[name="data-source"]');
 
   function showCacheSize() {
@@ -29,6 +30,7 @@ export function initDataSettings(onChange) {
     rowCount.value = stepForRowCount(state.rowCount);
     rowCountOutput.textContent = formatCount(state.rowCount);
     cacheToggle.checked = state.cache;
+    flagsToggle.checked = state.showFlags;
 
     for (const input of sources) {
       input.checked = input.value === state.dataSource;
@@ -48,6 +50,11 @@ export function initDataSettings(onChange) {
 
   cacheToggle.addEventListener("change", () => {
     state.cache = cacheToggle.checked;
+    onChange();
+  });
+
+  flagsToggle.addEventListener("change", () => {
+    state.showFlags = flagsToggle.checked;
     onChange();
   });
 

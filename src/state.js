@@ -14,6 +14,7 @@ export const state = {
   rowCount: rowCountSteps[1],
   dataSource: "faker",
   cache: true,
+  showFlags: false,
   buildStrategy: "inner_html",
   virtualization: "off",
   bufferRows: 8,

@@ -330,6 +330,14 @@
   letter-spacing: 0.08em;
 }
 
+.row__flag {
+  display: block;
+  width: auto;
+  height: calc(3.5 * var(--spacing));
+  border: 1px solid var(--color-ink);
+  object-fit: cover;
+}
+
 @media (width < 52rem) {
   .rows {
     border: none;
@@ -471,6 +479,12 @@
 @media (width < 52rem) {
   .settings__rail ol {
     justify-content: space-around;
+  }
+}
+
+@media (min-width: 52rem) {
+  .settings__rail ol {
+    padding-inline: calc(3 * var(--spacing));
   }
 }
 
@@ -752,5 +766,99 @@
 
   &::after {
     translate: 0 var(--bar-offset);
+  }
+}
+
+[id="runs-toggle"] {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.runs {
+  container-type: inline-size;
+  width: min(64rem, 92dvw);
+  max-height: 86dvh;
+  padding: calc(4 * var(--spacing));
+  border: var(--border-thick) solid var(--color-ink);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+
+  &[open] {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: calc(3 * var(--spacing));
+  }
+
+  &::backdrop {
+    background-color: color-mix(in srgb, var(--color-ink), transparent 35%);
+  }
+}
+
+.runs__actions {
+  gap: calc(2 * var(--spacing));
+}
+
+.runs__scroll {
+  overflow: auto;
+  border: 2px solid var(--color-ink);
+}
+
+.runs__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+
+  & :is(th, td) {
+    padding: var(--spacing) calc(2 * var(--spacing));
+    border: 1px solid color-mix(in srgb, var(--color-ink), transparent 70%);
+    text-align: right;
+  }
+
+  & thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  & tbody th {
+    position: sticky;
+    left: 0;
+    background-color: var(--color-canvas);
+    text-align: left;
+  }
+
+  & tbody tr[data-best="1"] {
+    font-weight: 700;
+  }
+
+  & tbody tr[data-best="1"] :is(th, td) {
+    background-color: var(--color-accent-4);
+  }
+}
+
+@media (width < 52rem) {
+  .runs {
+    width: 100dvw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    border: none;
+  }
+}
+
+@container (width < 34rem) {
+  .runs__table {
+    font-size: 0.6875rem;
+  }
+
+  .runs__table :is(th, td) {
+    padding: var(--spacing);
   }
 }

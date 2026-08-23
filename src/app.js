@@ -1,9 +1,11 @@
 import { beforeReplace } from "./config/memory/index.js";
 import { buildStrategies } from "./config/render/index.js";
 import { generateRowsChunked } from "./config/data/rows.js";
+import { setShowFlags } from "./config/render/row_shape.js";
 import { initMarquee } from "./super_header/marquee.js";
-import { initMenu } from "./menu.js";
+import { initRuns } from "./runs/dialog.js";
 import { initSettings } from "./settings/index.js";
+import { closeMenu, initMenu } from "./menu.js";
 import { loadStateFromUrl } from "./url_state.js";
 import { state } from "./state.js";
 import { beginRun, endRun, startStep, yieldedSoFar } from "./loading.js";
@@ -22,9 +24,18 @@ import {
   timeToPaint,
 } from "./metrics/index.js";
 
+function enabledContainment(containment) {
+  const enabled = Object.entries(containment)
+    .filter(([, on]) => on)
+    .map(([key]) => key);
+
+  return enabled.length ? enabled.join("+") : "none";
+}
+
 function App() {
   const scroller = document.getElementById("rows-list");
   const surface = document.getElementById("rows-surface");
+  const runs = initRuns({ beforeOpen: closeMenu });
 
   let list = null;
   let listKey = "";
@@ -64,6 +75,8 @@ function App() {
 
     await startStep("Building DOM");
 
+    setShowFlags(state.showFlags);
+
     const strategy = buildStrategies[state.buildStrategy].render;
     const target = currentList();
 
@@ -100,9 +113,26 @@ function App() {
 
     endRun();
 
-    showMetrics({
-      painted: reachedPaint - (yieldedSoFar() - yieldedBefore),
-      "style-layout": styleLayout,
+    const painted = reachedPaint - (yieldedSoFar() - yieldedBefore);
+
+    showMetrics({ painted, "style-layout": styleLayout });
+
+    runs.record({
+      rows: state.rowCount,
+      domRows: rendered.result,
+      source: state.dataSource,
+      flags: state.showFlags ? "on" : "off",
+      insertion: state.buildStrategy,
+      virtualization: state.virtualization,
+      layout: state.layoutStrategy,
+      paint: enabledContainment(state.containment),
+      scheduling: state.scheduling,
+      events: state.eventStrategy,
+      memory: state.memoryStrategy,
+      generate: generated.duration,
+      render: rendered.duration,
+      styleLayout,
+      painted,
     });
   }
 

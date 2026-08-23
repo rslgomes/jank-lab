@@ -26,6 +26,8 @@ export function loadStateFromUrl() {
 
   if (params.has("cache")) state.cache = params.get("cache") !== "0";
 
+  if (params.has("flags")) state.showFlags = params.get("flags") === "1";
+
   const buildStrategy = params.get("build");
   if (Object.hasOwn(buildStrategies, buildStrategy ?? "")) {
     state.buildStrategy = buildStrategy;
@@ -89,6 +91,7 @@ export function saveStateToUrl() {
     rows: String(state.rowCount),
     src: state.dataSource,
     cache: state.cache ? "1" : "0",
+    flags: state.showFlags ? "1" : "0",
     build: state.buildStrategy,
     virt: state.virtualization,
     buf: String(state.bufferRows),

@@ -1,12 +1,9 @@
 import { buildStrategies } from "../config/render/index.js";
 import { renderChoices, syncChoices } from "./controls.js";
 import { state } from "../state.js";
-import { verifyStrategies } from "../config/render/verify.js";
 
 export function initInsertionSettings(onChange) {
   const strategyField = document.getElementById("build-strategy");
-  const verifyButton = document.getElementById("verify-strategies");
-  const verifyResult = document.getElementById("verify-result");
 
   renderChoices(
     strategyField,
@@ -22,15 +19,6 @@ export function initInsertionSettings(onChange) {
   function sync() {
     syncChoices(strategyField, "build-strategy", state.buildStrategy);
   }
-
-  verifyButton.addEventListener("click", () => {
-    const { total, mismatched } = verifyStrategies();
-
-    verifyResult.textContent =
-      mismatched.length === 0
-        ? `all ${total} strategies produce identical DOM`
-        : `different DOM: ${mismatched.join(", ")}`;
-  });
 
   return { sync };
 }

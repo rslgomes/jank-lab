@@ -16,3 +16,7 @@ export function formatMs(value) {
   if (value >= 10) return `${Math.round(value)}ms`;
   return `${value.toFixed(1)}ms`;
 }
+
+export function formatMsOrUnavailable(value) {
+  return Number.isNaN(value) ? "n/a" : formatMs(value);
+}
