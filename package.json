@@ -12,5 +12,8 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.129.0"
   }
 }

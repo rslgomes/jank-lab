@@ -1,0 +1,10 @@
+.git/
+node_modules/
+server.js
+wrangler.toml
+package.json
+package-lock.json
+README.md
+test/
+not_found/
+.gitignore
